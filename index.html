@@ -1,158 +1,205 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SynteraTools</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>SynteraTools — Cyber Purple</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <!-- Navigation -->
-    <nav>
-        <div class="logo"><img src="images/logo.png" alt="SynteraTools" /></div>
-        <ul class="nav-links">
-            <li><a href="#converter">Converter</a></li>
-            <li><a href="#productivity">Productivity</a></li>
-            <li><a href="#fun">Fun</a></li>
-            <li><a href="#games">Games</a></li>
-            <li><a href="#weather">Weather</a></li>
-        </ul>
-    </nav>
+  <nav class="nav">
+    <div class="nav-left">
+      <img src="images/logo.png" alt="logo" class="logo" />
+      <span class="brand">SynteraTools</span>
+    </div>
+    <div class="nav-right">
+      <a href="#converter">Converter</a>
+      <a href="#productivity">Productivity</a>
+      <a href="#fun">Fun</a>
+      <a href="#games">Games</a>
+      <a href="#weather">Weather</a>
+    </div>
+  </nav>
 
-    <!-- Hero Section / Universal Converter -->
-    <section id="converter" class="hero">
-        <h1>Universal Converter</h1>
-        <div class="converter-card">
-            <input type="number" id="inputValue" placeholder="Enter value">
-            <div class="select-group">
-                <select id="inputUnit">
-                    <option value="m">Meter</option>
-                    <option value="km">Kilometer</option>
-                    <option value="cm">Centimeter</option>
-                </select>
-                <select id="outputUnit">
-                    <option value="m">Meter</option>
-                    <option value="km">Kilometer</option>
-                    <option value="cm">Centimeter</option>
-                </select>
-            </div>
-            <button onclick="convert()">Convert</button>
-            <div id="result">Result: 0</div>
+  <header class="hero" id="converter">
+    <div class="hero-inner">
+      <h1 class="hero-title">Universal Converter</h1>
+      <p class="hero-sub">Length • Temperature • File size — instant conversions</p>
+
+      <div class="converter-card neon-card">
+        <div class="row">
+          <input id="inputValue" type="number" placeholder="Enter value" />
+          <select id="inputCategory">
+            <option value="length">Length</option>
+            <option value="temperature">Temperature</option>
+            <option value="filesize">File Size</option>
+          </select>
         </div>
-    </section>
 
-    <!-- Productivity Section -->
+        <div id="converter-rows">
+          <!-- dynamic rows inserted by JS -->
+        </div>
+
+        <div class="row">
+          <button id="convertBtn" class="neon-btn">Convert</button>
+          <div id="result" class="result neon-text">Result: —</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="main">
+    <!-- Dashboard cards -->
     <section id="productivity" class="section">
-        <h2>Productivity Tools</h2>
-        <div class="cards-container">
-            <div class="tool-card" id="todo-card">To-Do List</div>
-            <div class="tool-card" id="pomodoro-card">Pomodoro Timer</div>
-            <div class="tool-card" id="habit-card">Habit Tracker</div>
+      <h2>Productivity</h2>
+      <div class="cards">
+        <div class="card" data-tool="todo">
+          <img src="images/challenge.png" alt="todo" />
+          <h3>To-Do</h3>
+          <p>Save tasks locally</p>
         </div>
-        <div id="productivity-tools">
-            <!-- To-Do -->
-            <div id="todo" class="tool-hidden">
-                <input type="text" id="todo-input" placeholder="New Task">
-                <button onclick="addTodo()">Add</button>
-                <ul id="todo-list"></ul>
-            </div>
-            <!-- Pomodoro -->
-            <div id="pomodoro" class="tool-hidden">
-                <div id="timer">25:00</div>
-                <button onclick="startPomodoro()">Start</button>
-                <button onclick="pausePomodoro()">Pause</button>
-                <button onclick="resetPomodoro()">Reset</button>
-            </div>
-            <!-- Habit Tracker -->
-            <div id="habit" class="tool-hidden">
-                <ul id="habit-list">
-                    <li><input type="checkbox" id="habit1"> Drink Water</li>
-                    <li><input type="checkbox" id="habit2"> Exercise</li>
-                    <li><input type="checkbox" id="habit3"> Read</li>
-                </ul>
-            </div>
+        <div class="card" data-tool="pomodoro">
+          <img src="images/clicker.png" alt="pomodoro" />
+          <h3>Pomodoro</h3>
+          <p>Focus timer</p>
         </div>
+        <div class="card" data-tool="habit">
+          <img src="images/challenge.png" alt="habit" />
+          <h3>Habit Tracker</h3>
+          <p>Daily habits saved</p>
+        </div>
+      </div>
+
+      <div class="tool-panel" id="todo" hidden>
+        <h3>To-Do List</h3>
+        <div class="row">
+          <input id="todo-input" placeholder="New task" />
+          <button id="todo-add" class="neon-sm">Add</button>
+        </div>
+        <ul id="todo-list" class="list"></ul>
+      </div>
+
+      <div class="tool-panel" id="pomodoro" hidden>
+        <h3>Pomodoro</h3>
+        <div id="timer-display" class="timer">25:00</div>
+        <div class="row">
+          <button id="pom-start" class="neon-sm">Start</button>
+          <button id="pom-pause" class="neon-sm">Pause</button>
+          <button id="pom-reset" class="neon-sm">Reset</button>
+        </div>
+      </div>
+
+      <div class="tool-panel" id="habit" hidden>
+        <h3>Habit Tracker</h3>
+        <ul class="habit-list">
+          <li><label><input type="checkbox" data-habit="water" /> Drink Water</label></li>
+          <li><label><input type="checkbox" data-habit="exercise" /> Exercise</label></li>
+          <li><label><input type="checkbox" data-habit="read" /> Read</label></li>
+        </ul>
+      </div>
     </section>
 
-    <!-- Fun Tools Section -->
     <section id="fun" class="section">
-        <h2>Fun Tools</h2>
-        <div class="cards-container">
-            <div class="tool-card" id="meme-card">Meme Generator</div>
-            <div class="tool-card" id="name-card">Random Name Generator</div>
-            <div class="tool-card" id="quiz-card">Quiz Generator</div>
+      <h2>Fun Tools</h2>
+      <div class="cards">
+        <div class="card" data-tool="meme">
+          <img src="images/meme_placeholder.png" alt="meme" />
+          <h3>Meme Generator</h3>
         </div>
-        <div id="fun-tools">
-            <!-- Meme Generator -->
-            <div id="meme" class="tool-hidden">
-                <input type="file" id="meme-img">
-                <input type="text" id="meme-text" placeholder="Enter Text">
-                <button onclick="generateMeme()">Generate Meme</button>
-                <canvas id="meme-canvas"></canvas>
-                <button onclick="downloadMeme()">Download</button>
-            </div>
-            <!-- Name Generator -->
-            <div id="name-gen" class="tool-hidden">
-                <button onclick="generateName()">Generate Random Name</button>
-                <p id="name-result"></p>
-            </div>
-            <!-- Quiz Generator -->
-            <div id="quiz" class="tool-hidden">
-                <p id="quiz-question">What is 2 + 2?</p>
-                <button onclick="answerQuiz(3)">3</button>
-                <button onclick="answerQuiz(4)">4</button>
-                <button onclick="answerQuiz(5)">5</button>
-                <p id="quiz-result"></p>
-            </div>
+        <div class="card" data-tool="name">
+          <img src="images/clicker.png" alt="name" />
+          <h3>Random Name</h3>
         </div>
+        <div class="card" data-tool="quiz">
+          <img src="images/challenge.png" alt="quiz" />
+          <h3>Quiz</h3>
+        </div>
+      </div>
+
+      <div class="tool-panel" id="meme" hidden>
+        <h3>Meme Generator</h3>
+        <input id="meme-file" type="file" accept="image/*" />
+        <input id="meme-text" placeholder="Top text" />
+        <button id="meme-gen" class="neon-sm">Generate</button>
+        <canvas id="meme-canvas"></canvas>
+        <button id="meme-download" class="neon-sm">Download</button>
+      </div>
+
+      <div class="tool-panel" id="name" hidden>
+        <h3>Random Name Generator</h3>
+        <button id="gen-name" class="neon-sm">Generate</button>
+        <p id="name-result" class="mono neon-text">—</p>
+      </div>
+
+      <div class="tool-panel" id="quiz" hidden>
+        <h3>Quick Quiz</h3>
+        <p id="quiz-q">What is 5 + 3?</p>
+        <div class="row quiz-answers">
+          <button class="neon-sm quiz-opt">6</button>
+          <button class="neon-sm quiz-opt">8</button>
+          <button class="neon-sm quiz-opt">9</button>
+        </div>
+        <p id="quiz-res" class="mono"></p>
+      </div>
     </section>
 
-    <!-- Mini Games Section -->
     <section id="games" class="section">
-        <h2>Mini Games</h2>
-        <div class="cards-container">
-            <div class="tool-card" id="clicker-card">Clicker Game</div>
-            <div class="tool-card" id="puzzle-card">Puzzle Game</div>
-            <div class="tool-card" id="challenge-card">Challenge of the Day</div>
+      <h2>Games</h2>
+      <div class="cards">
+        <div class="card" data-tool="clicker">
+          <img src="images/clicker.png" alt="clicker" />
+          <h3>Clicker</h3>
         </div>
-        <div id="games-tools">
-            <!-- Clicker -->
-            <div id="clicker" class="tool-hidden">
-                <button onclick="clickerIncrement()">Click Me!</button>
-                <p>Score: <span id="clicker-score">0</span></p>
-            </div>
-            <!-- Puzzle Placeholder -->
-            <div id="puzzle" class="tool-hidden">
-                <p>Puzzle Game coming soon...</p>
-            </div>
-            <!-- Challenge Placeholder -->
-            <div id="challenge" class="tool-hidden">
-                <p>Daily Challenge coming soon...</p>
-            </div>
+        <div class="card" data-tool="puzzle">
+          <img src="images/puzzle.png" alt="puzzle" />
+          <h3>Puzzle</h3>
         </div>
+        <div class="card" data-tool="challenge">
+          <img src="images/challenge.png" alt="challenge" />
+          <h3>Challenge</h3>
+        </div>
+      </div>
+
+      <div class="tool-panel" id="clicker" hidden>
+        <h3>Clicker</h3>
+        <button id="clicker-btn" class="neon-btn big">CLICK</button>
+        <p class="mono">Score: <span id="clicker-score">0</span></p>
+      </div>
+
+      <div class="tool-panel" id="puzzle" hidden>
+        <h3>Puzzle — click two tiles to swap</h3>
+        <div id="puzzle-board" class="puzzle-board"></div>
+        <button id="puzzle-shuffle" class="neon-sm">Shuffle</button>
+      </div>
+
+      <div class="tool-panel" id="challenge" hidden>
+        <h3>Daily Challenge</h3>
+        <img src="images/challenge.png" alt="challenge" class="full-img" />
+        <p class="mono">Solve this mini riddle in your head and check back tomorrow for new one.</p>
+      </div>
     </section>
 
-    <!-- Weather Section -->
     <section id="weather" class="section">
-        <h2>Weather Widget</h2>
-        <input type="text" id="city" placeholder="Enter City">
-        <button onclick="getWeather()">Get Weather</button>
-        <div id="weather-result">
-            <img id="weather-icon" src="images/weather.png" alt="Weather">
-            <p id="weather-text"></p>
+      <h2>Weather</h2>
+      <div class="row">
+        <input id="city-input" placeholder="City name (e.g. Dubai)" />
+        <button id="get-weather" class="neon-sm">Get</button>
+      </div>
+      <div id="weather-box" class="weather-box hidden">
+        <img id="weather-icon" src="images/weather.png" alt="weather" />
+        <div>
+          <p id="weather-city" class="mono"></p>
+          <p id="weather-desc" class="mono"></p>
+          <p id="weather-temp" class="mono"></p>
         </div>
+      </div>
     </section>
+  </main>
 
-    <!-- Footer -->
-    <footer>
-        <p>&copy; 2025 SynteraTools | All Rights Reserved</p>
-        <div class="social">
-            <a href="#">Twitter</a>
-            <a href="#">YouTube</a>
-            <a href="#">Discord</a>
-        </div>
-    </footer>
+  <footer class="footer">
+    <p>© 2025 SynteraTools • Built by Farzeen</p>
+  </footer>
 
-    <script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
