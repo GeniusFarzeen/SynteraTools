@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SynteraTools</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">SynteraTools</div>
+        <ul class="nav-links">
+            <li><a href="#converter">Tools</a></li>
+            <li><a href="#productivity">Productivity</a></li>
+            <li><a href="#fun">Fun</a></li>
+            <li><a href="#games">Games</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="converter" class="hero">
+        <h1>Universal Converter</h1>
+        <div class="converter">
+            <input type="number" id="inputValue" placeholder="Enter value">
+            <select id="inputUnit">
+                <option value="m">Meter</option>
+                <option value="km">Kilometer</option>
+                <option value="cm">Centimeter</option>
+            </select>
+            <select id="outputUnit">
+                <option value="m">Meter</option>
+                <option value="km">Kilometer</option>
+                <option value="cm">Centimeter</option>
+            </select>
+            <button onclick="convert()">Convert</button>
+            <div id="result">Result: 0</div>
+        </div>
+    </section>
+
+    <!-- Productivity Section -->
+    <section id="productivity">
+        <h2>Productivity Tools</h2>
+        <div class="tool-card">To-Do List (Coming Soon)</div>
+        <div class="tool-card">Pomodoro Timer (Coming Soon)</div>
+    </section>
+
+    <!-- Fun / Viral Tools Section -->
+    <section id="fun">
+        <h2>Fun Tools</h2>
+        <div class="tool-card">Meme Generator (Coming Soon)</div>
+        <div class="tool-card">Random Name Generator (Coming Soon)</div>
+    </section>
+
+    <!-- Mini Games Section -->
+    <section id="games">
+        <h2>Mini Games</h2>
+        <div class="tool-card">Clicker Game (Coming Soon)</div>
+        <div class="tool-card">Puzzle (Coming Soon)</div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 SynteraTools | All Rights Reserved</p>
+        <div class="social">
+            <a href="#">Twitter</a>
+            <a href="#">YouTube</a>
+            <a href="#">Discord</a>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
